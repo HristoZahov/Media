@@ -12,4 +12,20 @@ public abstract class User_Description {
         this.address = address;
         this.description = description;
     }
+
+    public String getEgn() {
+        return egn;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

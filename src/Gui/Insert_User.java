@@ -1,5 +1,7 @@
 package Gui;
 
+import Classes.User;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +31,15 @@ public class Insert_User {
             public void actionPerformed(ActionEvent e) {
                 if(!Name.getText().isEmpty()){
                     insertUser(Name.getText(), EGN.getText(), Phone.getText(), Address.getText(), Description.getText());
-                    frame.dispose();
+                    Run.menu.getUserGui().addUser(new User(getUserId(), Name.getText(),
+                            EGN.getText(), Phone.getText(), Address.getText(), Description.getText()));
+                    Name.setText("");
+                    EGN.setText("");
+                    Phone.setText("");
+                    Address.setText("");
+                    Description.setText("");
+
+                    //frame.dispose();
                 }
             }
         });

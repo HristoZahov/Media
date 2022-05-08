@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main_Menu {
-    private Insert_Edit_User user;
+    private Insert_Edit_User userGui;
     private JFrame frame;
 
     private JPanel Frame;
@@ -37,10 +37,10 @@ public class Main_Menu {
         User.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(user == null){
-                    user = new Insert_Edit_User();
+                if(userGui == null){
+                    userGui = new Insert_Edit_User();
                 }else{
-                    user.visible();
+                    userGui.visible();
                 }
                 frame.dispose();
             }
@@ -49,5 +49,8 @@ public class Main_Menu {
 
     public void visible(){
         frame.setVisible(true);
+    }
+    public Insert_Edit_User getUserGui() {
+        return userGui;
     }
 }
