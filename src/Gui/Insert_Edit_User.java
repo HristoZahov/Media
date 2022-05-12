@@ -1,7 +1,6 @@
 package Gui;
 
 import Classes.User;
-import DataBase.DBUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,11 +12,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static Utilities.TableUtilities.*;
+import static Utilities.UserUtilities.getSearchedUsers;
 
 public class Insert_Edit_User {
     private JFrame frame;
+
     private Insert_User insertUserGui;
-    private Edit editGui;
+    private Edit_User editGui;
+    private Delete deleteGui;
+
     private ArrayList<User> users;
     private DefaultTableModel model;
     private String[] head = {"Id","Name","EGN","Phone","Address"};
@@ -32,9 +35,10 @@ public class Insert_Edit_User {
     private JComboBox comboBox1;
     private JTextField textField1;
     private JButton Search;
+    private JButton deleteButton;
 
-    public Insert_Edit_User() {
-        frame = new JFrame("Insert/Edit User");
+    public Insert_Edit_User()    {
+        frame = new JFrame("Insert Edit User");
         frame.setContentPane(Main_Frame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -47,21 +51,11 @@ public class Insert_Edit_User {
         //Size
         frame.setBounds(650,300,400,400); //370,300
         //frame.setResizable(false);
-        users = DBUtilities.getUsers();
+        users = new ArrayList<>();
 
-        crateTable(makeTablePart(users));
+        crateTable(makeTablePartUsers(users));
         makeSearchComboBox();
         addLiseners();
-        Edit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(editGui == null){
-                    editGui = new Edit();
-                }else{
-                    editGui.visible();
-                }
-            }
-        });
     }
 
     private void addLiseners(){
@@ -79,6 +73,7 @@ public class Insert_Edit_User {
                 if(insertUserGui == null){
                     insertUserGui = new Insert_User();
                 }else{
+                    insertUserGui.clear();
                     insertUserGui.visible();
                 }
             }
@@ -90,9 +85,40 @@ public class Insert_Edit_User {
                 filter();
             }
         });
+
+        Edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(editGui == null){
+                    editGui = new Edit_User();
+                }else{
+                    editGui.clear();
+                    editGui.visible();
+                }
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(deleteGui == null){
+                    deleteGui = new Delete("User");
+                }else{
+                    deleteGui.clear();
+                    deleteGui.visible();
+                }
+            }
+        });
+
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textField1.setText("");
+            }
+        });
     }
     private void makeSearchComboBox(){
-        String[] type = {"Id","Name"};
+        String[] type = {"Id","Name","EGN","Phone","Address","All Users"};
         DefaultComboBoxModel model = new DefaultComboBoxModel(type);
         comboBox1.setModel(model);
     }
@@ -106,15 +132,11 @@ public class Insert_Edit_User {
         Table.getTableHeader().setReorderingAllowed(false);
         Table.setModel(model);
     }
-    private void filter(){
-        model = new DefaultTableModel(makeTablePart(searchFilter(users, comboBox1, textField1.getText())),head);
+    public void filter(){
+        model = new DefaultTableModel(makeTablePartUsers(getSearchedUsers(comboBox1, textField1.getText())),head);
         Table.setModel(model);
     }
 
-    public void addUser(User user){
-        users.add(user);
-        filter();
-    }
     public void visible(){
         frame.setVisible(true);
     }

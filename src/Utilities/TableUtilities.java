@@ -1,5 +1,6 @@
 package Utilities;
 
+import Classes.Media;
 import Classes.User;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TableUtilities {
-    public static Object[][] makeTablePart(ArrayList<User> users) {
+    public static Object[][] makeTablePartUsers(ArrayList<User> users) {
         Object[][] partsForTable = new Object[users.size()][];
         User user;
         Object[] object;
@@ -21,38 +22,17 @@ public class TableUtilities {
 
         return partsForTable;
     }
-    public static ArrayList<User> searchFilter(ArrayList<User> users, JComboBox comboBox, String value) {
-        ArrayList<User> newUsers = new ArrayList<>();
+    public static Object[][] makeTablePartMedias(ArrayList<Media> medias) {
+        Object[][] partsForTable = new Object[medias.size()][];
+        Media media;
+        Object[] object;
 
-        if(value.isEmpty()){
-            return users;
+        for (int i = 0; i < medias.size(); i++) {
+            media = medias.get(i);
+            object = new Object[]{media.getId(),media.getName(),media.getAuthor(),media.getYear(),media.getGenre(),media.getQuantity()};
+            partsForTable[i] = object;
         }
 
-        String index = String.valueOf(comboBox.getSelectedItem());
-        Pattern pattern = Pattern.compile("^[0-9]+$");
-        Matcher matcher = pattern.matcher(value);
-        boolean matchFound = matcher.matches();
-
-        switch (index) {
-            case "Id" -> {
-                if(matchFound){
-                    int id = Integer.parseInt(value);
-                    for (User user : users) {
-                        if (user.getId() == id) {
-                            newUsers.add(user);
-                            break;
-                        }
-                    }
-                }// Да се допише
-            }
-            case "Name" -> {
-                for (User user : users) {
-                    if (user.getName().equalsIgnoreCase(value)) {
-                        newUsers.add(user);
-                    }
-                }
-            }
-        }
-        return newUsers;
+        return partsForTable;
     }
 }

@@ -28,4 +28,20 @@ public abstract class User_Description {
     public String getDescription() {
         return description;
     }
+
+    public void setEgn(String egn) {
+        this.egn = egn;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

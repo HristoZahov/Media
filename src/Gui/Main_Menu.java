@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Main_Menu {
     private Insert_Edit_User userGui;
+    private Insert_Edit_Media mediaGui;
     private JFrame frame;
 
     private JPanel Frame;
@@ -20,7 +21,7 @@ public class Main_Menu {
     private JButton Report;
 
     public Main_Menu() {
-        frame = new JFrame("Main_Menu");
+        frame = new JFrame("Main Menu");
         frame.setContentPane(Frame);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -45,6 +46,17 @@ public class Main_Menu {
                 frame.dispose();
             }
         });
+        Media.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(mediaGui == null){
+                    mediaGui = new Insert_Edit_Media();
+                }else{
+                    mediaGui.visible();
+                }
+                frame.dispose();
+            }
+        });
     }
 
     public void visible(){
@@ -52,5 +64,8 @@ public class Main_Menu {
     }
     public Insert_Edit_User getUserGui() {
         return userGui;
+    }
+    public Insert_Edit_Media getMediaGui() {
+        return mediaGui;
     }
 }

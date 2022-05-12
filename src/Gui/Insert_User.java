@@ -1,14 +1,15 @@
 package Gui;
 
+import Classes.GuiInt;
 import Classes.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static DataBase.DBUtilities.*;
+import static Utilities.UserUtilities.*;
 
-public class Insert_User {
+public class Insert_User implements GuiInt {
     private JFrame frame;
 
     private JPanel Main_Frame;
@@ -31,13 +32,8 @@ public class Insert_User {
             public void actionPerformed(ActionEvent e) {
                 if(!Name.getText().isEmpty()){
                     insertUser(Name.getText(), EGN.getText(), Phone.getText(), Address.getText(), Description.getText());
-                    Run.menu.getUserGui().addUser(new User(getUserId(), Name.getText(),
-                            EGN.getText(), Phone.getText(), Address.getText(), Description.getText()));
-                    Name.setText("");
-                    EGN.setText("");
-                    Phone.setText("");
-                    Address.setText("");
-                    Description.setText("");
+                    Run.menu.getUserGui().filter();
+                    clear();
 
                     //frame.dispose();
                 }
@@ -47,5 +43,12 @@ public class Insert_User {
 
     public void visible(){
         frame.setVisible(true);
+    }
+    public void clear(){
+        Name.setText("");
+        EGN.setText("");
+        Phone.setText("");
+        Address.setText("");
+        Description.setText("");
     }
 }
