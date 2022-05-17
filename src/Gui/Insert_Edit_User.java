@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static Utilities.TableUtilities.*;
+import static Utilities.UserUtilities.getAllUsers;
 import static Utilities.UserUtilities.getSearchedUsers;
 
 public class Insert_Edit_User {
@@ -51,7 +52,7 @@ public class Insert_Edit_User {
         //Size
         frame.setBounds(650,300,400,400); //370,300
         //frame.setResizable(false);
-        users = new ArrayList<>();
+        users = getAllUsers();
 
         crateTable(makeTablePartUsers(users));
         makeSearchComboBox();
@@ -118,7 +119,7 @@ public class Insert_Edit_User {
         });
     }
     private void makeSearchComboBox(){
-        String[] type = {"Id","Name","EGN","Phone","Address","All Users"};
+        String[] type = {"Name","EGN","Phone","Address"};
         DefaultComboBoxModel model = new DefaultComboBoxModel(type);
         comboBox1.setModel(model);
     }

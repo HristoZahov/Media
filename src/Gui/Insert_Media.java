@@ -30,8 +30,8 @@ public class Insert_Media implements GuiInt {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!Name.getText().isEmpty()){
-                    insertMedia(Name.getText(),Author.getText(), Integer.parseInt(Year.getText()), Genre.getText(), Description.getText(), Integer.parseInt(Quantity.getText()));
+                if(!Name.getText().isEmpty() && !Author.getText().isEmpty() && !Year.getText().isEmpty() && !Genre.getText().isEmpty() && !Quantity.getText().isEmpty()){
+                    insertMedia(Name.getText(), Author.getText(), Integer.parseInt(Year.getText()), Genre.getText(), Description.getText(), Integer.parseInt(Quantity.getText()));
                     Run.menu.getMediaGui().filter();
                     clear();
 

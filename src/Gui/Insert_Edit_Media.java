@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static Utilities.MediaUtilities.getAllMedias;
 import static Utilities.MediaUtilities.getSearchedMedias;
 import static Utilities.TableUtilities.*;
 
@@ -51,7 +52,7 @@ public class Insert_Edit_Media {
         //Size
         frame.setBounds(650,300,400,400); //370,300
         //frame.setResizable(false);
-        medias = new ArrayList<>();
+        medias = getAllMedias();
 
         crateTable(makeTablePartMedias(medias));
         makeSearchComboBox();
@@ -118,7 +119,7 @@ public class Insert_Edit_Media {
         });
     }
     private void makeSearchComboBox(){
-        String[] type = {"Id","Name","Author","Year","Genre","Quantity","All Medias"};
+        String[] type = {"Name","Author","Year","Genre"};
         DefaultComboBoxModel model = new DefaultComboBoxModel(type);
         comboBox1.setModel(model);
     }

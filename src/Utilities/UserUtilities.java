@@ -201,54 +201,43 @@ public class UserUtilities {
                 "FROM media_project.user As u LEFT JOIN  media_project.user_details As d \n" +
                 "On u.Id = d.User_Id ";
 
-        String nameFilter = "Where u.Name = ?;";
-        String idFilter = "Where u.Id = ?;";
-        String egnFilter = "Where d.EGN = ?;";
-        String phoneFilter = "Where d.Phone = ?;";
-        String addressFilter = "Where d.Address = ?;";
+        String nameFilter = "Where u.Name like ?;";
+        String egnFilter = "Where d.EGN like ?;";
+        String phoneFilter = "Where d.Phone like ?;";
+        String addressFilter = "Where d.Address like ?;";
         ResultSet result = null;
 
-        Pattern pattern = Pattern.compile("^[0-9]+$");
-        Matcher matcher = pattern.matcher(value);
-        boolean matchFound = matcher.matches();
-
-        try {
-            switch (field){
-                case "Id" ->{
-                    if(matchFound){
-                        PreparedStatement statement = conn.prepareStatement(sql + idFilter);
-                        statement.setInt(1,Integer.parseInt(value));
+        if(!value.isEmpty()){
+            try {
+                switch (field){
+                    case "Name" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + nameFilter);
+                        statement.setString(1,"%" + value + "%");
+                        result = statement.executeQuery();
+                    }
+                    case "EGN" ->{
+                        if(value.length() == 10){
+                            PreparedStatement statement = conn.prepareStatement(sql + egnFilter);
+                            statement.setString(1,"%" + value + "%");
+                            result = statement.executeQuery();
+                        }
+                    }
+                    case "Phone" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + phoneFilter);
+                        statement.setString(1,"%" + value + "%");
+                        result = statement.executeQuery();
+                    }
+                    case "Address" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + addressFilter);
+                        statement.setString(1,"%" + value + "%");
                         result = statement.executeQuery();
                     }
                 }
-                case "Name" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + nameFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "EGN" ->{
-                    if(value.length() == 10){
-                        PreparedStatement statement = conn.prepareStatement(sql + egnFilter);
-                        statement.setString(1,value);
-                        result = statement.executeQuery();
-                    }
-                }
-                case "Phone" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + phoneFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "Address" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + addressFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "All Users" ->{
-                    result = getAllUsersSQL();
-                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }else{
+            return getAllUsersSQL();
         }
 
         return result;

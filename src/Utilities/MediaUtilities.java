@@ -123,6 +123,7 @@ public class MediaUtilities {
         File file = new File(path);
         file.delete();
     }
+
     //Edit Media
     public static  void updateMedia(Media media){
         conn = openConnection();
@@ -258,62 +259,47 @@ public class MediaUtilities {
                 "FROM media_project.media As m LEFT JOIN media_project.media_details As d \n" +
                 "On m.Id = d.Media_Id ";
 
-        String nameFilter = "Where m.Name = ?;";
-        String authorFilter = "Where m.Author = ?;";
-        String idFilter = "Where m.Id = ?;";
+        String nameFilter = "Where m.Name like ?;";
+        String authorFilter = "Where m.Author like ?;";
         String yearFilter = "Where d.Year = ?;";
-        String genreFilter = "Where d.Genre = ?;";
-        String quantityFilter = "Where d.Quantity = ?;";
+        String genreFilter = "Where d.Genre like ?;";
         ResultSet result = null;
 
         Pattern pattern = Pattern.compile("^[0-9]+$");
         Matcher matcher = pattern.matcher(value);
         boolean matchFound = matcher.matches();
 
-        try {
-            switch (field){
-                case "Id" ->{
-                    if(matchFound){
-                        PreparedStatement statement = conn.prepareStatement(sql + idFilter);
-                        statement.setInt(1,Integer.parseInt(value));
+        if(!value.isEmpty()){
+            try {
+                switch (field){
+                    case "Name" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + nameFilter);
+                        statement.setString(1,"%" + value + "%");
+                        result = statement.executeQuery();
+                    }
+                    case "Author" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + authorFilter);
+                        statement.setString(1,"%" + value + "%");
+                        result = statement.executeQuery();
+                    }
+                    case "Year" ->{
+                        if(matchFound){
+                            PreparedStatement statement = conn.prepareStatement(sql + yearFilter);
+                            statement.setInt(1,Integer.parseInt(value));
+                            result = statement.executeQuery();
+                        }
+                    }
+                    case "Genre" ->{
+                        PreparedStatement statement = conn.prepareStatement(sql + genreFilter);
+                        statement.setString(1,"%" + value + "%");
                         result = statement.executeQuery();
                     }
                 }
-                case "Name" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + nameFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "Author" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + authorFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "Year" ->{
-                    if(matchFound){
-                        PreparedStatement statement = conn.prepareStatement(sql + yearFilter);
-                        statement.setInt(1,Integer.parseInt(value));
-                        result = statement.executeQuery();
-                    }
-                }
-                case "Genre" ->{
-                    PreparedStatement statement = conn.prepareStatement(sql + genreFilter);
-                    statement.setString(1,value);
-                    result = statement.executeQuery();
-                }
-                case "Quantity" ->{
-                    if(matchFound){
-                        PreparedStatement statement = conn.prepareStatement(sql + quantityFilter);
-                        statement.setInt(1,Integer.parseInt(value));
-                        result = statement.executeQuery();
-                    }
-                }
-                case "All Medias" ->{
-                    result = getAllMediasSQL();
-                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }else{
+            return getAllMediasSQL();
         }
 
         return result;
