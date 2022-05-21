@@ -42,6 +42,7 @@ public class Edit_User implements GuiInt {
 
                     updateUser(user);
                     Run.menu.getUserGui().filter();
+                    clear();
                     //frame.dispose();
                 }
             }
@@ -77,5 +78,8 @@ public class Edit_User implements GuiInt {
         Phone.setText("");
         Address.setText("");
         Description.setText("");
+    }
+    public void dispose(){
+        frame.dispose();
     }
 }

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 public class Main_Menu {
     private Insert_Edit_User userGui;
     private Insert_Edit_Media mediaGui;
+    private Report report;
+    private Rent_Return rent_return;
     private JFrame frame;
 
     private JPanel Frame;
@@ -57,6 +59,28 @@ public class Main_Menu {
                 frame.dispose();
             }
         });
+        Report.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(report == null){
+                    report = new Report();
+                }else{
+                    report.visible();
+                }
+                frame.dispose();
+            }
+        });
+        Rent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(rent_return == null){
+                    rent_return = new Rent_Return();
+                }else{
+                    rent_return.visible();
+                }
+                frame.dispose();
+            }
+        });
     }
 
     public void visible(){
@@ -67,5 +91,12 @@ public class Main_Menu {
     }
     public Insert_Edit_Media getMediaGui() {
         return mediaGui;
+    }
+    public Gui.Report getReport() {
+        return report;
+    }
+
+    public Rent_Return getRent_return() {
+        return rent_return;
     }
 }

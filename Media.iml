@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.26.jar!/" />
+          <root url="jar://C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.27.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,19 +19,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/IdeaProjects/Librarys/core-3.3.0.jar!/" />
+          <root url="file://$MODULE_DIR$/Jars" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/IdeaProjects/Librarys/javase-3.3.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/Jars" recursive="false" />
       </library>
     </orderEntry>
   </component>

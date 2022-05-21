@@ -7,7 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Utilities.MediaUtilities.checkMediaHaveRentsSQL;
 import static Utilities.MediaUtilities.deleteMedia;
+import static Utilities.UserUtilities.checkUserHaveRentsSQL;
 import static Utilities.UserUtilities.deleteUser;
 
 public class Delete implements GuiInt {
@@ -32,13 +34,22 @@ public class Delete implements GuiInt {
             public void actionPerformed(ActionEvent e) {
                 if(!IdField.getText().isEmpty()){
                     if(type.equals("User")){
-                        deleteUser(Integer.parseInt(IdField.getText()));
-                        Run.menu.getUserGui().filter();
+                        if(checkUserHaveRentsSQL(Integer.parseInt(IdField.getText()))){
+                            deleteUser(Integer.parseInt(IdField.getText()));
+                            Run.menu.getUserGui().filter();
+                            IdField.setText("");
+                        }else{
+                            System.out.println("Error");
+                        }
                     }else{
-                        deleteMedia(Integer.parseInt(IdField.getText()));
-                        Run.menu.getMediaGui().filter();
+                        if(checkMediaHaveRentsSQL(Integer.parseInt(IdField.getText()))){
+                            deleteMedia(Integer.parseInt(IdField.getText()));
+                            Run.menu.getMediaGui().filter();
+                            IdField.setText("");
+                        }else{
+                            System.out.println("Error");
+                        }
                     }
-                    IdField.setText("");
                 }
             }
         });
@@ -49,5 +60,8 @@ public class Delete implements GuiInt {
     }
     public void clear() {
         IdField.setText("");
+    }
+    public void dispose(){
+        frame.dispose();
     }
 }

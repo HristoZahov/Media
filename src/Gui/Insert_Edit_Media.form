@@ -24,7 +24,7 @@
             </constraints>
             <properties>
               <font size="20"/>
-              <text value="Insert/Edit User"/>
+              <text value="Insert/Edit Media"/>
             </properties>
           </component>
         </children>

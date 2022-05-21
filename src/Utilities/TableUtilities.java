@@ -3,10 +3,7 @@ package Utilities;
 import Classes.Media;
 import Classes.User;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TableUtilities {
     public static Object[][] makeTablePartUsers(ArrayList<User> users) {
@@ -22,19 +19,33 @@ public class TableUtilities {
 
         return partsForTable;
     }
-    public static Object[][] makeTablePartUsersRent(ArrayList<User> users) {
+    public static Object[][] makeTablePartUsersRent(ArrayList<User> users, ArrayList<String> names) {
         Object[][] partsForTable = new Object[users.size()][];
         User user;
         Object[] object;
 
+        boolean isExist = false;
         for (int i = 0; i < users.size(); i++) {
             user = users.get(i);
-            object = new Object[]{user.getName(), user.getEgn(), user.getPhone(), user.getAddress()};
+            for(String name: names){
+                if(user.getName().equals(name)){
+                    isExist = true;
+                }
+            }
+
+            if(isExist){
+                object = new Object[]{user.getName(), user.getEgn(), user.getPhone(), true};
+            }else{
+                object = new Object[]{user.getName(), user.getEgn(), user.getPhone(), false};
+            }
             partsForTable[i] = object;
+
+            isExist = false;
         }
 
         return partsForTable;
     }
+
     public static Object[][] makeTablePartMedias(ArrayList<Media> medias) {
         Object[][] partsForTable = new Object[medias.size()][];
         Media media;
@@ -48,15 +59,26 @@ public class TableUtilities {
 
         return partsForTable;
     }
-    public static Object[][] makeTablePartMediasRent(ArrayList<Media> medias) {
+    public static Object[][] makeTablePartMediasRent(ArrayList<Media> medias, ArrayList<String> names) {
         Object[][] partsForTable = new Object[medias.size()][];
         Media media;
         Object[] object;
 
+        boolean isExist = false;
         for (int i = 0; i < medias.size(); i++) {
             media = medias.get(i);
-            object = new Object[]{media.getName(),media.getAuthor(),media.getYear(),media.getGenre(),media.getQuantity(), false};
+            for(String name: names){
+                if(media.getName().equals(name)){
+                    isExist = true;
+                }
+            }
+            if(isExist){
+                object = new Object[]{media.getName(),media.getAuthor(),media.getYear(),media.getGenre(),media.getQuantity(), true};
+            }else{
+                object = new Object[]{media.getName(),media.getAuthor(),media.getYear(),media.getGenre(),media.getQuantity(), false};
+            }
             partsForTable[i] = object;
+            isExist = false;
         }
 
         return partsForTable;

@@ -45,7 +45,7 @@ public class Edit_Media implements GuiInt {
 
                     updateMedia(media);
                     Run.menu.getMediaGui().filter();
-                    //frame.dispose();
+                    clear();
                 }
             }
         });
@@ -80,6 +80,10 @@ public class Edit_Media implements GuiInt {
         Author.setText("");
         Year.setText("");
         Genre.setText("");
+        Quantity.setText("");
         Description.setText("");
+    }
+    public void dispose(){
+        frame.dispose();
     }
 }

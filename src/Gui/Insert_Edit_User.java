@@ -19,7 +19,7 @@ public class Insert_Edit_User {
     private JFrame frame;
 
     private Insert_User insertUserGui;
-    private Edit_User editGui;
+    private Edit_User editUserGui;
     private Delete deleteGui;
 
     private ArrayList<User> users;
@@ -63,6 +63,15 @@ public class Insert_Edit_User {
         Back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(insertUserGui != null){
+                    insertUserGui.dispose();
+                }
+                if(editUserGui != null){
+                    editUserGui.dispose();
+                }
+                if(deleteGui != null){
+                    deleteGui.dispose();
+                }
                 Run.menu.visible();
                 frame.dispose();
             }
@@ -90,11 +99,11 @@ public class Insert_Edit_User {
         Edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(editGui == null){
-                    editGui = new Edit_User();
+                if(editUserGui == null){
+                    editUserGui = new Edit_User();
                 }else{
-                    editGui.clear();
-                    editGui.visible();
+                    editUserGui.clear();
+                    editUserGui.visible();
                 }
             }
         });

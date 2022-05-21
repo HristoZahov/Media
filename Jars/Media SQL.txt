@@ -1,0 +1,77 @@
+CREATE SCHEMA IF NOT EXISTS `media_project` DEFAULT CHARACTER SET utf8 ;
+USE `media_project` ;
+
+-- -----------------------------------------------------
+-- Table `media_project`.`media`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `media_project`.`media` (
+  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(25) NOT NULL,
+  `Author` VARCHAR(25) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `idmedia_UNIQUE` (`Id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `media_project`.`media_details`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `media_project`.`media_details` (
+  `Media_Id` INT UNSIGNED NOT NULL,
+  `Year` DECIMAL(4,0) NULL,
+  `Genre` VARCHAR(25) NULL,
+  `Description` VARCHAR(255) NULL,
+  `Quantity` INT NULL DEFAULT 0,
+  `Picture` VARCHAR(255) NULL,
+  INDEX `fk_media_details_media1_idx` (`Media_Id` ASC) VISIBLE,
+  PRIMARY KEY (`Media_Id`),
+  UNIQUE INDEX `media_Id_UNIQUE` (`Media_Id` ASC) VISIBLE,
+  CONSTRAINT `fk_media_details_media1`
+    FOREIGN KEY (`Media_Id`)
+    REFERENCES `media_project`.`media` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `media_project`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `media_project`.`user` (
+  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `iduser_UNIQUE` (`Id` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `media_project`.`user_details`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `media_project`.`user_details` (
+  `User_Id` INT UNSIGNED NOT NULL,
+  `EGN` VARCHAR(10) NULL,
+  `Phone` VARCHAR(255) NULL,
+  `Address` VARCHAR(255) NULL,
+  `Description` VARCHAR(255) NULL,
+  PRIMARY KEY (`User_Id`),
+  UNIQUE INDEX `user_Id_UNIQUE` (`User_Id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_details_user1`
+    FOREIGN KEY (`User_Id`)
+    REFERENCES `media_project`.`user` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `media_project`.`rent` (
+   `Id` int unsigned NOT NULL AUTO_INCREMENT,
+   `User_Id` int DEFAULT NULL,
+   `Media_Id` int DEFAULT NULL,
+   `Start_Date` datetime NOT NULL,
+   `End_Date` datetime NOT NULL,
+   `IsReturned` tinyint(1) NOT NULL DEFAULT '0',
+   PRIMARY KEY (`Id`),
+   UNIQUE KEY `Id_UNIQUE` (`Id`),
+   KEY `fk_user_has_media_media1_idx` (`Media_Id`),
+   KEY `fk_user_has_media_user1_idx` (`User_Id`)
+ ) ENGINE=InnoDB;

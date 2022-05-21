@@ -51,4 +51,7 @@ public class Insert_User implements GuiInt {
         Address.setText("");
         Description.setText("");
     }
+    public void dispose(){
+        frame.dispose();
+    }
 }

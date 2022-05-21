@@ -63,6 +63,15 @@ public class Insert_Edit_Media {
         Back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(insertMediaGui != null){
+                    insertMediaGui.dispose();
+                }
+                if(editMediaGui != null){
+                    editMediaGui.dispose();
+                }
+                if(deleteGui != null){
+                    deleteGui.dispose();
+                }
                 Run.menu.visible();
                 frame.dispose();
             }
@@ -134,7 +143,7 @@ public class Insert_Edit_Media {
         Table.setModel(model);
     }
     public void filter(){
-        model = new DefaultTableModel(makeTablePartMedias(getSearchedMedias(comboBox1, textField1.getText())),head);
+        model = new DefaultTableModel(makeTablePartMedias(getSearchedMedias(comboBox1, textField1.getText(),false)),head);
         Table.setModel(model);
     }
 

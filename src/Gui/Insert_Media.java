@@ -52,4 +52,7 @@ public class Insert_Media implements GuiInt {
         Quantity.setText("");
         Description.setText("");
     }
+    public void dispose(){
+        frame.dispose();
+    }
 }
