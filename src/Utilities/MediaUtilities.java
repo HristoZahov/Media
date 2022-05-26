@@ -27,6 +27,7 @@ public class MediaUtilities {
 
         addMedia(name, author);
         addMediaDetails(getMediaId(), year, genre, description, quantity);
+
         Media media = getOneMedia(getMediaId());
         String picture = createQRCode(media);
 
@@ -132,6 +133,8 @@ public class MediaUtilities {
 
         updateMediaSQL(media);
         updateMediaDetailsSQL(media);
+        String picture = createQRCode(media);
+        addPicture(picture,media.getId());
 
         closeConnection(conn);
     }
