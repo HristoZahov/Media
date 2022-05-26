@@ -46,6 +46,7 @@ public class Edit_Media implements GuiInt {
                     updateMedia(media);
                     Run.menu.getMediaGui().filter();
                     clear();
+                    media = null;
                 }
             }
         });
