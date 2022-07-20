@@ -670,7 +670,7 @@ public class MediaUtilities {
         try{
             result = getSearchedSQL(field,value,isLated);
             while(result.next()){
-                object = new Object[]{result.getString("Media"), result.getDate("Start_Date"), result.getDate("End_Date")};
+                object = new Object[]{result.getString("Media"), result.getString("User"), result.getDate("Start_Date"), result.getDate("End_Date")};
                 objects[count] = object;
                 count++;
             }

@@ -20,7 +20,7 @@ public class Dedicated_Medias {
     private ArrayList<Order> orders = new ArrayList<>();
 
     private DefaultTableModel model;
-    private String[] head = {"Media","Start Date","End Date"};
+    private String[] head = {"Media","User","Start Date","End Date"};
 
     private JPanel Main_Frame;
     private JPanel Header;
@@ -82,7 +82,7 @@ public class Dedicated_Medias {
 
     }
     private void makeSearchComboBox(){
-        String[] type = {"Media","Start Date","End Date"};
+        String[] type = {"Media","User","Start Date","End Date"};
         DefaultComboBoxModel model = new DefaultComboBoxModel(type);
         comboBox1.setModel(model);
     }
